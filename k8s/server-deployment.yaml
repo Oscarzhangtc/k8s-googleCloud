@@ -19,7 +19,7 @@ spec:
             - containerPort: 5000
           env:
             - name: REDIS_HOST
-              value: redis-cluster-ip-servce
+              value: redis-cluster-ip-service
             - name: REDIS_PORT
               value: '6379'
             - name: PGUSER
@@ -31,10 +31,7 @@ spec:
             - name: PGDATABASE
               value: postgres
             - name: PGPASSWORD
-             # name can be anything, we chose PGPASSWORD because it is the variable name the server applications
-
               valueFrom:
                 secretKeyRef:
                   name: pgpassword
                   key: PGPASSWORD
-                  #k8s find the secret with the name, find the key value pair with a key name of 'PGPASSWORD', pass in its value as the value for env var 'PGPASSWORD' (not the

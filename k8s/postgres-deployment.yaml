@@ -1,3 +1,4 @@
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -13,7 +14,6 @@ spec:
         component: postgres
     spec:
       volumes:
-        # specifies the storage(outside of the container) we want this pod to have access to
         - name: postgres-storage
           persistentVolumeClaim:
             claimName: database-persistent-volume-claim
@@ -24,8 +24,7 @@ spec:
             - containerPort: 5432
           volumeMounts:
             - name: postgres-storage
-              #same name as volumes, finds the piece of storage with same name in Volumes
-              mountPath: /var/lib/postgresql/database
+              mountPath: /var/lib/postgresql/data
               subPath: postgres
           env:
             - name: PGPASSWORD
