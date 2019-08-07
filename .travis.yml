@@ -8,21 +8,21 @@ env:
     - CLOUDSDK_CORE_DISABLE_PROMPTS=1
     # make sure google CLoud doesnt show us any prompt that requires us repond, so are processes doesnt get stuck
 before_install:
-  - openssl aes-256-cbc -K $encrypted_0c35eebf403c_key -iv $encrypted_0c35eebf403c_iv -in service-account.json.enc -out service-account.json -d
-  # un-encrypt the service-account.json place into the current proj directory
-  - curl https://sdk.cloud.google.com | bash > /dev/null;
-  # download google cloud | install locally on travis.ci
-  - source $HOME/google-cloud-sdk/path.bash.inc
-  # source file path.bash.inc, add some configuration to travis for googlecloud setup
-  - gcloud components update kubectl
-  # Get a kubectl to our travis environment
-  - gcloud auth activate-service-account --key-file service-account.json
-  # authenticate our access to google Cloud
-  - gcloud config set project rare-result-249001
-  # tell google to cloud work with with this project
-  - gcloud config set compute/zone us-central1-a
-  # configuring we the project is in this compute zone
-  - gcloud container clusters get-credentials multi-cluster
+  # - openssl aes-256-cbc -K $encrypted_0c35eebf403c_key -iv $encrypted_0c35eebf403c_iv -in service-account.json.enc -out service-account.json -d
+  # # un-encrypt the service-account.json place into the current proj directory
+  # - curl https://sdk.cloud.google.com | bash > /dev/null;
+  # # download google cloud | install locally on travis.ci
+  # - source $HOME/google-cloud-sdk/path.bash.inc
+  # # source file path.bash.inc, add some configuration to travis for googlecloud setup
+  # - gcloud components update kubectl
+  # # Get a kubectl to our travis environment
+  # - gcloud auth activate-service-account --key-file service-account.json
+  # # authenticate our access to google Cloud
+  # - gcloud config set project rare-result-249001
+  # # tell google to cloud work with with this project
+  # - gcloud config set compute/zone us-central1-a
+  # # configuring we the project is in this compute zone
+  # - gcloud container clusters get-credentials multi-cluster
   # tell google cloud to work with that cluster, so our imperatives commands run inside cluster
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
   # we have access to docker since we specified it as a service
