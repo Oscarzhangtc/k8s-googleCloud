@@ -1,0 +1,25 @@
+apiVersion: skaffold/v1beta2
+kind: Config
+build:
+  local:
+    push: false
+    # dont push image to docker-hub
+  artifacts:
+    # images/containers we want skaffold to manage
+    - image: oscarzzz/multi-client
+      context: client
+      docker:
+        dockerfile: Dockerfile.dev
+      sync:
+      #required when using number 2
+        '**/*.js': .
+        '**/*.css': .
+        '**/*.html': .
+      #everytime skaffold when detect a change in .js, .css, .html files, we inject the updated into the running k8s containers
+      # if we change anything besides these types of files, it will update the cluster thru mode 1 instead
+
+deploy:
+  kubectl:
+    manifests:
+      - k8s/client-deployment.yaml
+      # inject updated files to the client deployment, in this case, all the containers with multi-client image
